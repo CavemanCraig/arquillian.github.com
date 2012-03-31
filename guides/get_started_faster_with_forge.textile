@@ -65,7 +65,7 @@ bc(command). $ forge install-plugin arquillian
 
 Now we need to set up Arquillian and a container configuration. Let's first try JBoss AS7
 
-bc(command). $ arquillian setup --container JBOSS_AS_7_MANAGED
+bc(command). $ arquillian setup --container JBOSS_AS_MANAGED_7.X
 
 Forge will prompt you which version of JUnit, Arquillian and JBoss AS7 to use. Use the latest final versions for each. Forge can even download JBoss AS7 automatically if you haven't done so yet.
 
@@ -82,7 +82,7 @@ Wrote /Users/paul/arquillian-demo/src/test/java/demo/MySimpleBeanTest.java
 
 A new test class with a deployment and test method is added to the project. It injects the class under test using CDI, so this will immediately prove if the test really runs in a container. If your IDE can't find imports, make sure you enable the Maven profile that was created earlier. You can run the test from your IDE, directly from Maven or from Forge.
 
-bc(command). $ build --profile arq-jbossas-7-managed
+bc(command). $ build --profile JBOSS_AS_MANAGED_7.X 
 
 *Congratulations!* You've earned your first *(greenbar)green bar* with Arquillian and Forge!
 
@@ -156,6 +156,15 @@ public class LanguageDao {
         em.persist(groovy);
     }
 }
+
+p. Make sure your .pom file is set up to include the j2ee.jar file by including this dependency.
+
+bc(prettify)..     <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>6.0</version>
+      <scope>runtime</scope>
+    </dependency>
 
 p. It's now time to create our test class, and if you completed the first half of this tutorial, this command should look familiar.
 
